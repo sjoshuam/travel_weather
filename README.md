@@ -5,7 +5,7 @@
 
 |Group            |Progress |Weight |PxW   |
 |:-               |:-       |:-     |:-    |
-|Planning         |      .50|    .16| .0800|
+|Planning         |      .83|    .16| .1333|
 |Import Data      |      .00|    .16| .0000|
 |Refine Data      |      .00|    .16| .0000|
 |Build Model      |      .00|    .16| .0000|
@@ -13,7 +13,7 @@
 |Build Dashboard  |      .00|    .16| .0000|
 |Add To Portfolio |      .00|    .04| .0000|
 **--**
-|TOTAL            |        =|      =| .0800|
+|TOTAL            |        =|      =| .1333|
 
 ### Work Queue
 
@@ -22,8 +22,8 @@
 **Planning**
 |Data research         |X|X|X|X|4    |
 |README.md             |X|X|-|-|2    |
-|GitHub                |-|-|-|-|0    |
-|TOTAL                 |=|=|=|=|06/12|
+|GitHub                |X|X|X|X|4    |
+|TOTAL                 |=|=|=|=|10/12|
 **Import Data**
 |extract_links         |-|-|-|-|0    |
 |download_files        |-|-|-|-|0    |
