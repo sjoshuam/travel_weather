@@ -8,7 +8,7 @@
 |Planning         |      .83|    .16| .1333|
 |Import Data      |      .25|    .16| .0400|
 |Refine Data      |      .25|    .16| .0400|
-|Build Model      |      .08|    .16| .0133|
+|Build Model      |      .25|    .16| .0400|
 |Model Routes     |      .00|    .16| .0000|
 |Build Dashboard  |      .00|    .16| .0000|
 |Add To Portfolio |      .00|    .04| .0000|
@@ -30,16 +30,15 @@
 |TOTAL                 |=|=|=|=|02/08|
 **Refine Data**
 |refine_files          |X|-|-|-|1    |
-|TOTAL                 |=|=|=|=|01/04|
-**Build Model**
 |load_model_data       |X|-|-|-|1    |
-|train_model           |-|-|-|-|0    |
-|test_model            |-|-|-|-|0    |
-|TOTAL                 |=|=|=|=|01/12|
+|TOTAL                 |=|=|=|=|02/08|
+**Build Model**
+|model_weather         |X|-|-|-|1    |
+|TOTAL                 |=|=|=|=|01/04|
 **Model Routes**
 |model_routes          |-|-|-|-|0    |
 |compile_results       |-|-|-|-|0    |
-|TOTAL                 |=|=|=|=|00/08|
+|TOTAL                 |=|=|=|=|00/12|
 **Render Dashboard**
 |render_layout         |-|-|-|-|0    |
 |render_line_panel     |-|-|-|-|0    |
