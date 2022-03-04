@@ -36,6 +36,7 @@
 |model_weather         |X|-|-|-|1    |
 |TOTAL                 |=|=|=|=|01/04|
 **Model Routes**
+|model_city            |-|-|-|-|0    |
 |model_routes          |-|-|-|-|0    |
 |compile_results       |-|-|-|-|0    |
 |TOTAL                 |=|=|=|=|00/12|
