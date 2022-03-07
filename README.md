@@ -9,11 +9,12 @@
 |Import Data      |      .25|    .16| .0400|
 |Refine Data      |      .25|    .16| .0400|
 |Build Model      |      .25|    .16| .0400|
-|Model Routes     |      .00|    .16| .0000|
-|Build Dashboard  |      .00|    .16| .0000|
+|Model Routes     |      .25|    .16| .0400|
+|Build Dashboard  |      .25|    .16| .0400|
 |Add To Portfolio |      .00|    .04| .0000|
 **--**
-|TOTAL            |        =|      =| .2266|
+|TOTAL            |        =|      =| .3066|
+|T2               |        =|      =| .4088|
 
 ### Work Queue
 
@@ -36,15 +37,15 @@
 |model_weather         |X|-|-|-|1    |
 |TOTAL                 |=|=|=|=|01/04|
 **Model Routes**
-|model_city            |-|-|-|-|0    |
-|model_routes          |-|-|-|-|0    |
-|compile_results       |-|-|-|-|0    |
-|TOTAL                 |=|=|=|=|00/12|
+|model_city            |X|-|-|-|1    |
+|model_routes          |X|-|-|-|1    |
+|find_best_month       |X|-|-|-|1    |
+|TOTAL                 |=|=|=|=|03/12|
 **Render Dashboard**
-|render_layout         |-|-|-|-|0    |
-|render_line_panel     |-|-|-|-|0    |
-|render_table_panel    |-|-|-|-|0    |
-|TOTAL                 |=|=|=|=|00/12|
+|render_data           |X|-|-|-|1    |
+|render_infrastructure |X|-|-|-|1    |
+|render_weather        |X|-|-|-|1    |
+|TOTAL                 |=|=|=|=|03/12|
 **Add To Portfolio**
 |Add To portfolio      |-|-|-|-|0    |
 |TOTAL                 |=|=|=|=|00/04|
