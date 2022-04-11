@@ -26,12 +26,12 @@ I have organized this project's development into a stage-by-component matrix.
 ## Task Matrix
 |     |Dr|Im|Op|
 |:-   |:-|:-|:-|
-|00-ID| X|  |  |
-|01-RD| X|  |  |
-|02-BM| X|  |  |
-|03-MR| X|  |  |
-|04-RV| X|  |  |
-|05-TC| X|  |  |
+|01-ID| X|  |  |
+|02-RD| X|  |  |
+|03-BM| X|  |  |
+|04-MR| X|  |  |
+|05-RV| X|  |  |
+|06-TC| X|  |  |
 
 Total Progress: 33%
 
