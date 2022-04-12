@@ -26,14 +26,14 @@ I have organized this project's development into a stage-by-component matrix.
 ## Task Matrix
 |     |Dr|Im|Op|
 |:-   |:-|:-|:-|
-|01-ID| X|  |  |
+|01-ID| X| X|  |
 |02-RD| X|  |  |
 |03-BM| X|  |  |
 |04-MR| X|  |  |
 |05-RV| X|  |  |
 |06-TC| X|  |  |
 
-Total Progress: 33%
+Total Progress: 39% (7 of 18)
 
 ## Notes for the Improving stage:
 + Filter raw data for city proximity earlier in the code
