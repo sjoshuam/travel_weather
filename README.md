@@ -27,13 +27,16 @@ I have organized this project's development into a stage-by-component matrix.
 |     |Dr|Im|Op|
 |:-   |:-|:-|:-|
 |01-ID| X| X|  |
-|02-RD| X|  |  |
-|03-BM| X|  |  |
-|04-MR| X|  |  |
+|02-RD| X| X|  |
+|03-BM| X| •|  |
+|04-MR| X| X|  |
 |05-RV| X|  |  |
 |06-TC| X|  |  |
 
-Total Progress: 39% (7 of 18)
+   Total Progress: 56% (10 of 18)
+Priority Progress: 83% (10 of 12)
+
+• = Revised approach folds this into the next section
 
 ## Notes for the Improving stage:
 + Filter raw data for city proximity earlier in the code
