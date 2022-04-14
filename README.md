@@ -30,18 +30,13 @@ I have organized this project's development into a stage-by-component matrix.
 |02-RD| X| X|  |
 |03-BM| X| •|  |
 |04-MR| X| X|  |
-|05-RV| X|  |  |
+|05-RV| X| X|  |
 |06-TC| X|  |  |
 
-   Total Progress: 56% (10 of 18)
-Priority Progress: 83% (10 of 12)
+   Total Progress: 61% (11 of 18)
+Priority Progress: 92% (11 of 12)
 
 • = Revised approach folds this into the next section
-
-## Notes for the Improving stage:
-+ Filter raw data for city proximity earlier in the code
-+ Do data averaging as few times as possible
-+ Measure variance across cities in each route
 
 # Directory Layout
 Project directories are lettered to indicate sequences, and code scripts are
