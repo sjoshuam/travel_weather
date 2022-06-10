@@ -14,23 +14,25 @@ mostly for practice purposes.
 
 1. PTP - Plan The Project.
 2. BDB - Build Database.
-3. FCQ - Formulate Common Queries.
+3. FCQ - Formulate Common Queries. Should be able to support:
   + Best weather for a single city
-  + Average weather score for cities in a given state.
-  + Best weather for each city
-4. UTG - Upload to GitHub.
+  + Average weather for cities in a given state.
+4. FVQ - Formulate Various Queries.
+  + Use as wide a range of SQL query keywords as practical
+5. UTG - Upload to GitHub.
 
 ## Task Matrix
 
 |   | X |
 |:- |:- |
 |PTP|X  |
-|BDB|/  |
-|FCQ|   |
-|UTG|   |
-| = |1.5|
+|BDB|X  |
+|FCQ|X  |
+|FVQ|   |
+|UTG|X  |
+| = |4.0|
 
-Progress: 1.5 / 4 = 38%
+Progress: 4.0 / 5.0 = 80%
 
 |_Key:_|
 |:-|
@@ -41,7 +43,7 @@ Progress: 1.5 / 4 = 38%
 ## TODO
 + Add code to Python script to make csv versions of city_list tables
 
-+ Look for ways to incorporate common queries, Part 1
++ Look for ways to incorporate various query types:
   + SELECT FROM WHERE ORDER BY LIMIT
   + INNER/LEFT/OUT/CROSS JOIN
   + UNION/INTERSECT
@@ -59,4 +61,4 @@ Progress: 1.5 / 4 = 38%
   + CURRENT_TIMESTAMP
 
 # Source
-See README_Python.md
+See README.md

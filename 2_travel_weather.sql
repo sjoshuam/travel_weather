@@ -4,15 +4,19 @@
 ## this script sets up a MySQL database to provide ad hoc weather queries
 ## See README_SQL.md for details
 
-#####################
-## Set up database ##
-#####################
+#########################
+## Connection settings ##
+#########################
 
-/*  comment out database set-up - START
-
-## configuration reminders (if needed)
-##SET GLOBAL local_infile = 1;
+SET SQL_SAFE_UPDATES = 0;
+SET GLOBAL local_infile = 1;
 ## OPT_LOCAL_INFILE=1 #add to mysqlbench connection
+
+#####################
+## Create Database ##
+#####################
+
+/*
 
 ## reset databases
 CREATE DATABASE IF NOT EXISTS travel_weather;
@@ -20,11 +24,16 @@ USE travel_weather;
 DROP TABLE IF EXISTS weather;
 DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS route;
+DROP TABLE IF EXISTS calendar;
 
 ## create route data table
 CREATE TABLE route (
-route varchar(32), pre_travel varchar(16), drive_mileage smallint,
-trip_days tinyint, best_temp_1 varchar(8), best_temp_2 varchar(8),
+route varchar(32),
+pre_travel varchar(16),
+drive_mileage smallint,
+trip_days tinyint,
+best_temp_1 varchar(8),
+best_temp_2 varchar(8),
 states_etc varchar(32),
 PRIMARY KEY (route)
 );
@@ -33,66 +42,114 @@ LOAD DATA LOCAL INFILE '/Users/s8/Documents/Coding/travel_weather/B_Process/rout
 INTO TABLE route FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
+DELETE FROM route WHERE route is NULL;
+
 ## create city data table
 CREATE TABLE city (
-Num int, City varchar(32), State varchar(4), Route varchar(32),
-Visit tinyint, Photo tinyint, Score tinyint, lon float, lat float,
-Photo_Date varchar(8),
-PRIMARY KEY (City),
-FOREIGN KEY (Route) REFERENCES route(route)
+num int,
+city varchar(32),
+state varchar(4),
+route varchar(32),
+visit tinyint CHECK (visit = 0 OR visit = 1),
+photo tinyint CHECK (photo = 0 OR photo = 1),
+score tinyint CHECK (score >= 0 OR score <= 1),
+lon float CHECK (lon >= -180 OR lon <= 180),
+lat float CHECK (lat >= -90 OR lat <= 90),
+photo_date varchar(8),
+PRIMARY KEY (city),
+FOREIGN KEY (route) REFERENCES route (route)
 );
 
 LOAD DATA LOCAL INFILE '/Users/s8/Documents/Coding/travel_weather/B_Process/cities_for_sql.csv'
 INTO TABLE city FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' 
 IGNORE 1 LINES;
 
-## create weather data data
+DELETE FROM city WHERE city is NULL;
+
+## create weather data table
 CREATE TABLE weather (
-weather_id int, city varchar(32),
-day smallint, hour tinyint, score float,
+weather_id int,
+city varchar(32),
+day smallint CHECK (day > 0 AND day < 367),
+hour tinyint CHECK (hour > 0 AND hour < 25),
+score float CHECK (score >= 0 AND score <= 1),
 PRIMARY KEY (weather_id),
-FOREIGN KEY (city) REFERENCES city(City)
+FOREIGN KEY (city) REFERENCES city(city)
 );
 
 LOAD DATA LOCAL INFILE '/Users/s8/Documents/Coding/travel_weather/B_Process/city_score.csv'
 INTO TABLE weather FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' 
 IGNORE 1 LINES;
 
-*/ ## comment out database set-up - END
+DELETE FROM weather WHERE weather_id is NULL;
+
+## create calendar data table
+CREATE TABLE calendar (
+example varchar(10),
+month smallint CHECK (month > 0 AND month < 32),
+half_month float CHECK (half_month > 0 AND half_month < 13),
+day smallint CHECK (day > 0 AND day < 32),
+day_of_year smallint CHECK (day_of_year > 0 AND day_of_year < 367),
+leap_example varchar(10),
+leap_month smallint CHECK (leap_month > 0 AND leap_month < 13),
+leap_half_month float CHECK (leap_half_month > 0 AND leap_half_month < 13),
+leap_day smallint CHECK (leap_day > 0 AND leap_day < 32),
+PRIMARY KEY (day_of_year)
+);
+
+LOAD DATA LOCAL INFILE '/Users/s8/Documents/Coding/travel_weather/A_Input/calendar.csv'
+INTO TABLE calendar FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' 
+IGNORE 1 LINES;
+
+DELETE FROM calendar WHERE day_of_year is NULL;
+
+## simplify data to temperate hours per day
+CREATE TABLE daily_weather AS SELECT city, day, SUM(score) as tw_hours FROM weather
+WHERE hour BETWEEN 7 AND 19
+GROUP BY city, day;
+
+## simplify data to average temperate hours per half-month
+DROP TABLE IF EXISTS bimonthly_weather;
+CREATE TABLE bimonthly_weather AS SELECT daily_weather.city, city.state, half_month, AVG(tw_hours) as avg_tw FROM daily_weather
+LEFT JOIN calendar ON daily_weather.day = calendar.day_of_year
+LEFT JOIN city ON daily_weather.city = city.city
+GROUP BY daily_weather.city, half_month
+ORDER BY half_month ASC, avg_tw DESC, daily_weather.city ASC;
+DROP TABLE daily_weather;
+
+*/
 
 ##############################
-## Formulate Common Queries ##
+## Formulate Ad-Hoc Queries ##
 ##############################
 
-## prep - select database and cull irrelevant weather data
+#/*
+
+## select database
 USE travel_weather;
-SET SQL_SAFE_UPDATES = 0;
 
-DROP TABLE IF EXISTS day_weather;
-CREATE TABLE day_weather AS SELECT * FROM weather WHERE hour BETWEEN 7 AND 19;
-ALTER TABLE day_weather ADD PRIMARY KEY (weather_id);
+## limit data to valid states
+DROP TABLE IF EXISTS valid_state;
+CREATE TABLE valid_state (valid_st varchar(2));
+## INSERT INTO valid_state SELECT DISTINCT state FROM bimonthly_weather; ## all states
+## INSERT INTO valid_state VALUES ('OK'), ('KS'), ('MO'), ('AR'), ('LA'), ('TX'), ('NM'), ('CO'), ('NE'), ('MO'), ('IA'); ## south-central states
+INSERT INTO valid_state VALUES ('WI'), ('MI'); ## specific state(s)
 
-## Average weather score for each state
-ALTER TABLE day_weather ADD week smallint;
-UPDATE day_weather SET week = MOD(day, 7);
-DELETE FROM day_weather WHERE weather_id IS NULL;
+DROP TABLE IF EXISTS query_table;
+CREATE TABLE query_table AS SELECT * FROM bimonthly_weather
+LEFT JOIN valid_state ON bimonthly_weather.state = valid_state.valid_st
+WHERE valid_st IS NOT NULL;
 
-DROP TABLE IF EXISTS state_avg;
-CREATE TABLE state_avg AS SELECT * FROM day_weather LEFT JOIN city ON day_weather.city = city.City;
-#SELECT State, week, AVG(score) FROM state_avg GROUP BY State, week;
+## execute ad hoc queries - find cities
+SELECT city, half_month, state, ROUND(avg_tw) AS avg_temperate_hours FROM query_table
+WHERE avg_tw >= 6 AND (half_month >= 0 AND half_month <= 13);
 
+## execute ad hoc queries - count cities
+SELECT half_month, COUNT(city) AS avg_temperate_hours FROM query_table
+WHERE avg_tw >= 6 AND (half_month >= 0 AND half_month <= 13)
+GROUP BY half_month;
 
-
-#SELECT city, MOD(day) AS month, AVG(score) FROM day_weather GROUP BY (city, month);
-
-## Best weather for a single city
-
-## Best city for each week
-
-#SELECT * FROM weather LIMIT 2;
-#SELECT * FROM city LIMIT 2;
-#SELECT * FROM route LIMIT 2;
-#SELECT DISTINCT hour FROM weather;
+#*/
 
 ##########==========##########==========##########==========##########==========
 ##########==========##########==========##########==========##########==========
