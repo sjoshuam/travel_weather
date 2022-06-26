@@ -141,15 +141,21 @@ LEFT JOIN valid_state ON bimonthly_weather.state = valid_state.valid_st
 WHERE valid_st IS NOT NULL;
 
 ## execute ad hoc queries - find cities
+/*
 SELECT city, half_month, state, ROUND(avg_tw) AS avg_temperate_hours FROM query_table
 WHERE avg_tw >= 6 AND (half_month >= 0 AND half_month <= 13);
+*/
 
 ## execute ad hoc queries - count cities
+/*
 SELECT half_month, COUNT(city) AS avg_temperate_hours FROM query_table
 WHERE avg_tw >= 6 AND (half_month >= 0 AND half_month <= 13)
 GROUP BY half_month;
+*/
 
-#*/
+## execute ad hoc queries - rank states by weather
+daily_weather
+
 
 ##########==========##########==========##########==========##########==========
 ##########==========##########==========##########==========##########==========
