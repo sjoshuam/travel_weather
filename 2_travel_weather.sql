@@ -19,12 +19,9 @@ SET GLOBAL local_infile = 1;
 /*
 
 ## reset databases
-CREATE DATABASE IF NOT EXISTS travel_weather;
+DROP DATABASE IF EXISTS travel_weather;
+CREATE DATABASE travel_weather;
 USE travel_weather; 
-DROP TABLE IF EXISTS weather;
-DROP TABLE IF EXISTS city;
-DROP TABLE IF EXISTS route;
-DROP TABLE IF EXISTS calendar;
 
 ## create route data table
 CREATE TABLE route (
@@ -109,7 +106,6 @@ WHERE hour BETWEEN 7 AND 19
 GROUP BY city, day;
 
 ## simplify data to average temperate hours per half-month
-DROP TABLE IF EXISTS bimonthly_weather;
 CREATE TABLE bimonthly_weather AS SELECT daily_weather.city, city.state, half_month, AVG(tw_hours) as avg_tw FROM daily_weather
 LEFT JOIN calendar ON daily_weather.day = calendar.day_of_year
 LEFT JOIN city ON daily_weather.city = city.city
@@ -123,38 +119,43 @@ DROP TABLE daily_weather;
 ## Formulate Ad-Hoc Queries ##
 ##############################
 
-#/*
-
 ## select database
 USE travel_weather;
 
-## limit data to valid states
-DROP TABLE IF EXISTS valid_state;
-CREATE TABLE valid_state (valid_st varchar(2));
-## INSERT INTO valid_state SELECT DISTINCT state FROM bimonthly_weather; ## all states
-## INSERT INTO valid_state VALUES ('OK'), ('KS'), ('MO'), ('AR'), ('LA'), ('TX'), ('NM'), ('CO'), ('NE'), ('MO'), ('IA'); ## south-central states
-INSERT INTO valid_state VALUES ('WI'), ('MI'); ## specific state(s)
 
-DROP TABLE IF EXISTS query_table;
-CREATE TABLE query_table AS SELECT * FROM bimonthly_weather
-LEFT JOIN valid_state ON bimonthly_weather.state = valid_state.valid_st
-WHERE valid_st IS NOT NULL;
+## view raw materials
+SELECT * FROM bimonthly_weather LIMIT 3;
+SELECT * FROM calendar LIMIT 3;
+SELECT * FROM city LIMIT 3;
+SELECT * FROM route LIMIT 3;
+SELECT * FROM weather LIMIT 3;
 
-## execute ad hoc queries - find cities
-/*
-SELECT city, half_month, state, ROUND(avg_tw) AS avg_temperate_hours FROM query_table
-WHERE avg_tw >= 6 AND (half_month >= 0 AND half_month <= 13);
-*/
 
-## execute ad hoc queries - count cities
-/*
-SELECT half_month, COUNT(city) AS avg_temperate_hours FROM query_table
-WHERE avg_tw >= 6 AND (half_month >= 0 AND half_month <= 13)
-GROUP BY half_month;
-*/
+## When is the best time to visit X states during Y half-months?
+SELECT half_month, ROUND(AVG(avg_tw), 1) as good_hours FROM bimonthly_weather 
+WHERE state in ("MI", "WI")
+GROUP BY half_month
+HAVING good_hours >= 6
+ORDER BY half_month ASC;
 
-## execute ad hoc queries - rank states by weather
-daily_weather
+
+## What fraction of cities are generally temperate on a given route in each half-month?
+DROP VIEW IF EXISTS bwc;
+CREATE VIEW bwc AS (SELECT * FROM bimonthly_weather LEFT JOIN city USING (city, state));
+SELECT route, half_month, ROUND(AVG(avg_tw >= 6), 2) AS good_weather FROM bwc
+WHERE route = 'Georgia Plus'
+GROUP BY half_month, route;
+
+
+## Which states have the least-bad worst-month weather?
+SELECT state, ROUND(MIN(avg_tw), 1) as good_weather FROM bimonthly_weather
+GROUP BY state ORDER BY good_weather DESC LIMIT 5;
+
+## When is the best time to visit each city?
+DROP VIEW IF EXISTS bm;
+CREATE VIEW bm AS (SELECT city, MAX(avg_tw) AS avg_tw FROM bimonthly_weather GROUP BY CITY);
+SELECT * FROM bm LEFT JOIN bimonthly_weather USING (city, avg_tw)
+ORDER BY half_month, city;
 
 
 ##########==========##########==========##########==========##########==========

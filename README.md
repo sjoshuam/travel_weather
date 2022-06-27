@@ -18,8 +18,8 @@ I have organized this project's development into a stage-by-component matrix.
 ## Components (Drafting Stage)
 0. Import Data – Import all needed data.  This is a large task.
 1. Refine Data – Clean and reshape data into an enriched form.
-2. Build Model – Trained a model to predict the weather at destinations.
-3. Model Routes – Predict weather at destinations along the route.
+2. Build Model – Average past data to predict future weather at destinations.
+3. Model Routes – Average predictions for all destinations along the route.
 4. Render Visualization – Visualize weather temperateness for each route.
 5. Test Code - Tests for all features.
 
@@ -28,7 +28,7 @@ I have organized this project's development into a stage-by-component matrix.
 |:-   |:-|:-|:-|
 |01-ID| X| X|  |
 |02-RD| X| X|  |
-|03-BM| X| •|  |
+|03-BM| X| X|  |
 |04-MR| X| X|  |
 |05-RV| X| X|  |
 |06-TC| X|  |  |
@@ -37,11 +37,7 @@ I have organized this project's development into a stage-by-component matrix.
    Total Progress: (0.55 * 6 + 0.30 * 5 + 0.15 * 0) / (1.00 * 6) =  80%
 Priority Progress: (0.55 * 6 + 0.30 * 5 + 0.00 * 0) / (0.85 * 6) =  94%
 
-• = Revised approach folds this into the next section
-
 ## TODO:
-+ Update us_travel to match findings
-+ Update portfolio to have 'daily' in the title
 + Run collection to add Canadian data, then regenerate visualization
 
 # Directory Layout
