@@ -1,0 +1,16 @@
+﻿variable,city,route,1,2,3,4,5,6,7,8,9,10,11,12
+Average high,San Juan PR,Puerto Rico,83.2,83.8,84.7,86.2,87.4,89,88.7,89.1,89.2,88.6,86.1,84.2
+Daily mean,San Juan PR,Puerto Rico,77.6,77.8,78.6,80.1,81.6,83.1,83.1,83.5,83.4,82.7,80.5,78.8
+Average low,San Juan PR,Puerto Rico,71.9,71.8,72.4,74,75.7,77.2,77.6,77.8,77.5,76.7,74.9,73.3
+Average high,Honolulu HI,Hawaii State,80.5,80.5,81.2,83.1,84.8,86.9,88.1,88.8,88.4,86.9,84.1,81.8
+Daily mean,Honolulu HI,Hawaii State,73.6,73.8,74.7,76.6,78.2,80.3,81.6,82.2,81.6,80.4,78,75.5
+Average low,Honolulu HI,Hawaii State,66.8,67.1,68.1,70.1,71.5,73.8,75.1,75.6,74.8,73.9,71.8,69.2
+Average high,Fairbanks AK,Alaska State,0.6,11.6,24.9,45.6,62.1,71.8,72.7,66.4,55.3,34.1,12.3,4.3
+Daily mean,Fairbanks AK,Alaska State,-8.3,0.2,10.7,33.7,50.3,61,62.9,57,45.8,26.2,4.1,-4.3
+Average low,Fairbanks AK,Alaska State,-17.2,-11.2,-3.4,21.7,38.6,50.2,53.1,47.6,36.2,18.4,-4.1,-13
+Average high,Anchorage AK,Alaska State,22.7,27.3,33,45.1,56.3,63.4,66.2,64,55.7,42,28.9,25
+Daily mean,Anchorage AK,Alaska State,16.9,21.3,25.8,37.5,48.1,55.9,59.6,57.5,49.3,36.3,23.6,19.4
+Average low,Anchorage AK,Alaska State,11,15.2,18.6,29.9,40,48.4,52.9,50.9,42.9,30.7,18.3,13.8
+Average high,Washington DC,Home City,44.8,48.3,56.5,68,76.5,85.1,89.6,87.8,80.7,69.4,58.2,48.8
+Daily mean,Washington DC,Home City,37.5,40,47.6,58.2,67.2,76.3,81,79.4,72.4,60.8,49.9,41.7
+Average low,Washington DC,Home City,30.1,31.8,38.6,48.4,58,67.5,72.4,71,64.1,52.2,41.6,34.5
