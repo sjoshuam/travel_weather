@@ -2,11 +2,8 @@
 This SQL project is an add-on to the primary Python project. The main project
 scores the temperateness of the weather for each of my planned read trip routes.
 This project creates an SQL database of weather scores to facilitate
-customized, ad hoc searches.  It is entirely based on data projects from the
+customized, ad hoc searches.  It is entirely based on data products from the
 main project.
-
-Aside from convenience queries, this is
-mostly for practice purposes.
 
 # Task Board
 
@@ -28,11 +25,11 @@ mostly for practice purposes.
 |PTP|X  |
 |BDB|X  |
 |FCQ|X  |
-|FVQ|   |
+|FVQ|X  |
 |UTG|X  |
 | = |4.0|
 
-Progress: 4.0 / 5.0 = 80%
+Progress: 4.0 / 5.0 = 100%
 
 |_Key:_|
 |:-|
@@ -41,24 +38,6 @@ Progress: 4.0 / 5.0 = 80%
 |  = Not Done|
 
 ## TODO
-+ Add code to Python script to make csv versions of city_list tables
-
-+ Look for ways to incorporate various query types:
-  + SELECT FROM WHERE ORDER BY LIMIT
-  + INNER/LEFT/OUT/CROSS JOIN
-  + UNION/INTERSECT
-  + AVG COUNT SUM MAX MIN
-  + LAG LEAD NTILE
-  + LIKE/%/_ BETWEEN AND
-+ Look for ways to incorporate common queries, Part 2
-  + CREATE DROP ALTER ADD RENAME
-  + PRIMARY KEY / FOREIGN KEY REFERENCES
-  + UNIQUE CHECK NOT NULL
-  + INSERT INTO VALUES DELETE FROM
-  + CREATE VIEW / INDEX UNIQUE INDEX
-  + ON UPDATE
-  + AUTO_INCREMENT
-  + CURRENT_TIMESTAMP
 
 # Source
 See README.md
