@@ -122,40 +122,67 @@ DROP TABLE daily_weather;
 ## select database
 USE travel_weather;
 
-
 ## view raw materials
+/*
 SELECT * FROM bimonthly_weather LIMIT 3;
 SELECT * FROM calendar LIMIT 3;
 SELECT * FROM city LIMIT 3;
 SELECT * FROM route LIMIT 3;
 SELECT * FROM weather LIMIT 3;
+*/
 
 
 ## When is the best time to visit X states during Y half-months?
+/*
 SELECT half_month, ROUND(AVG(avg_tw), 1) as good_hours FROM bimonthly_weather 
 WHERE state in ("MI", "WI")
 GROUP BY half_month
 HAVING good_hours >= 6
 ORDER BY half_month ASC;
+*/
 
 
 ## What fraction of cities are generally temperate on a given route in each half-month?
+/*
 DROP VIEW IF EXISTS bwc;
 CREATE VIEW bwc AS (SELECT * FROM bimonthly_weather LEFT JOIN city USING (city, state));
 SELECT route, half_month, ROUND(AVG(avg_tw >= 6), 2) AS good_weather FROM bwc
 WHERE route = 'Georgia Plus'
 GROUP BY half_month, route;
+*/
 
 
 ## Which states have the least-bad worst-month weather?
+/*
 SELECT state, ROUND(MIN(avg_tw), 1) as good_weather FROM bimonthly_weather
 GROUP BY state ORDER BY good_weather DESC LIMIT 5;
+*/
 
 ## When is the best time to visit each city?
+/*
 DROP VIEW IF EXISTS bm;
 CREATE VIEW bm AS (SELECT city, MAX(avg_tw) AS avg_tw FROM bimonthly_weather GROUP BY CITY);
 SELECT * FROM bm LEFT JOIN bimonthly_weather USING (city, avg_tw)
 ORDER BY half_month, city;
+*/
+
+## How good is the weather in each half-month for a custom table of cities?
+DROP TABLE IF EXISTS cl;
+CREATE TABLE cl (city varchar(32));
+INSERT INTO cl (city) VALUES
+	("Pittsburgh PA"), ("Cleveland OH"),
+    ("Detroit MI"), ("Lansing MI"), ("Grand Rapids MI"),
+    ("Green Bay WI"), ("Milwaukee WI"), ("Madison WI"),
+    ("Chicago IL"), ("Davenport IA");
+    
+SELECT half_month, ROUND(MIN(avg_tw), 1) AS min, ROUND(AVG(avg_tw), 1) AS mean FROM cl 
+LEFT JOIN bimonthly_weather USING (city)
+GROUP BY half_month 
+HAVING half_month > 7 AND half_month < 10
+ORDER BY half_month ASC;
+
+
+    
 
 
 ##########==========##########==========##########==========##########==========

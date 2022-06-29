@@ -31,12 +31,12 @@ I have organized this project's development into a stage-by-component matrix.
 |03-BM| X | X |   |
 |04-MR| X | X |   |
 |05-RV| X | X |   |
-|06-TC| X | / |   |
-|N    |6.0|5.5|   |
+|06-TC| X | X |   |
+|N    |6.0|6.0|   |
 |%    |55 |30 |15 |
 
-   Total Progress: (0.55 * 6 + 0.30 * 5.5 + 0.15 * 0) / (1.00 * 6) =  82%
-Priority Progress: (0.55 * 6 + 0.30 * 5.5 + 0.00 * 0) / (0.85 * 6) =  97%
+   Total Progress: (0.55 * 6 + 0.30 * 6.0 + 0.15 * 0) / (1.00 * 6) =  85%
+Priority Progress: (0.55 * 6 + 0.30 * 6.0 + 0.00 * 0) / (0.85 * 6) = 100%
 
 ## TODO:
 + Run collection to add Canadian data, then regenerate visualization
